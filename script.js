@@ -112,7 +112,7 @@ function revealSections() {
     });
 }
 
-// Enhanced Scroll Event Listeners with Navbar Effects
+// Enhanced Scroll Event Listeners with Navbar Effects and Particle Interaction
 window.addEventListener('scroll', () => {
     updateActiveNavLink();
     revealSections();
@@ -124,7 +124,55 @@ window.addEventListener('scroll', () => {
     } else {
         navbar.classList.remove('scrolled');
     }
+    
+    // Add scroll-based particle effects
+    const scrollPercent = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
+    createScrollParticles(scrollPercent);
 });
+
+// Create particles based on scroll position
+function createScrollParticles(scrollPercent) {
+    if (Math.random() < 0.05 && scrollPercent > 0) {
+        const particle = document.createElement('div');
+        particle.style.cssText = `
+            position: fixed;
+            right: 20px;
+            top: ${Math.random() * window.innerHeight}px;
+            width: 3px;
+            height: 3px;
+            background: rgba(103, 126, 234, 0.6);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 100;
+            animation: scrollParticle 1.5s ease-out forwards;
+            box-shadow: 0 0 8px rgba(103, 126, 234, 0.4);
+        `;
+        
+        document.body.appendChild(particle);
+        
+        setTimeout(() => {
+            if (particle.parentNode) {
+                particle.remove();
+            }
+        }, 1500);
+    }
+}
+
+// Add scroll particle animation
+const scrollParticleStyle = document.createElement('style');
+scrollParticleStyle.textContent = `
+    @keyframes scrollParticle {
+        0% {
+            transform: translateX(0) scale(1);
+            opacity: 1;
+        }
+        100% {
+            transform: translateX(-100px) scale(0);
+            opacity: 0;
+        }
+    }
+`;
+document.head.appendChild(scrollParticleStyle);
 
 // Initialize animations on page load
 window.addEventListener('load', () => {
@@ -368,60 +416,138 @@ timelineItems.forEach(item => {
     timelineObserver.observe(item);
 });
 
-// Add floating particles background
-function createParticles() {
-    const particlesContainer = document.createElement('div');
-    particlesContainer.className = 'particles';
-    particlesContainer.style.cssText = `
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
-        z-index: 1;
-        overflow: hidden;
-    `;
+// Enhanced Interactive Particle System
+function createAdvancedParticles() {
+    // Create multiple particle layers
+    const particleTypes = [
+        { count: 80, size: [2, 6], speed: [15, 25], opacity: [0.3, 0.7], color: 'rgba(255, 255, 255, ' },
+        { count: 40, size: [1, 3], speed: [20, 35], opacity: [0.2, 0.5], color: 'rgba(103, 126, 234, ' },
+        { count: 30, size: [3, 8], speed: [10, 20], opacity: [0.1, 0.4], color: 'rgba(240, 147, 251, ' }
+    ];
     
-    for (let i = 0; i < 50; i++) {
-        const particle = document.createElement('div');
-        particle.className = 'particle';
-        particle.style.cssText = `
-            position: absolute;
-            width: ${Math.random() * 4 + 2}px;
-            height: ${Math.random() * 4 + 2}px;
-            background: rgba(255, 255, 255, ${Math.random() * 0.5 + 0.2});
-            border-radius: 50%;
-            animation: float ${Math.random() * 20 + 10}s linear infinite;
-            left: ${Math.random() * 100}%;
-            animation-delay: ${Math.random() * 20}s;
+    particleTypes.forEach((type, typeIndex) => {
+        const particlesContainer = document.createElement('div');
+        particlesContainer.className = `particles-layer-${typeIndex}`;
+        particlesContainer.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: ${1 + typeIndex};
+            overflow: hidden;
         `;
-        particlesContainer.appendChild(particle);
-    }
-    
-    // Add particle animation styles
-    const style = document.createElement('style');
-    style.textContent = `
-        @keyframes float {
-            0% {
-                transform: translateY(100vh) translateX(0px);
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-100px) translateX(${Math.random() * 200 - 100}px);
-                opacity: 0;
-            }
+        
+        for (let i = 0; i < type.count; i++) {
+            const particle = document.createElement('div');
+            const size = Math.random() * (type.size[1] - type.size[0]) + type.size[0];
+            const speed = Math.random() * (type.speed[1] - type.speed[0]) + type.speed[0];
+            const opacity = Math.random() * (type.opacity[1] - type.opacity[0]) + type.opacity[0];
+            const delay = Math.random() * 20;
+            const horizontalMovement = Math.random() * 400 - 200;
+            
+            particle.className = `particle-${typeIndex}`;
+            particle.style.cssText = `
+                position: absolute;
+                width: ${size}px;
+                height: ${size}px;
+                background: ${type.color}${opacity});
+                border-radius: 50%;
+                box-shadow: 0 0 ${size * 2}px ${type.color}${opacity * 0.5});
+                animation: 
+                    floatUp${typeIndex} ${speed}s linear infinite,
+                    twinkle${typeIndex} ${Math.random() * 3 + 2}s ease-in-out infinite alternate;
+                left: ${Math.random() * 100}%;
+                animation-delay: ${delay}s;
+                will-change: transform, opacity;
+            `;
+            particlesContainer.appendChild(particle);
         }
-    `;
-    document.head.appendChild(style);
-    document.body.appendChild(particlesContainer);
+        
+        // Add unique animations for each particle type
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes floatUp${typeIndex} {
+                0% {
+                    transform: translateY(100vh) translateX(0px) rotate(0deg);
+                    opacity: 0;
+                }
+                10% {
+                    opacity: 1;
+                }
+                90% {
+                    opacity: 1;
+                }
+                100% {
+                    transform: translateY(-100px) translateX(${Math.random() * 400 - 200}px) rotate(360deg);
+                    opacity: 0;
+                }
+            }
+            
+            @keyframes twinkle${typeIndex} {
+                0% { opacity: ${type.opacity[0]}; transform: scale(1); }
+                100% { opacity: ${type.opacity[1]}; transform: scale(1.2); }
+            }
+        `;
+        document.head.appendChild(style);
+        document.body.appendChild(particlesContainer);
+    });
+    
+    // Add interactive mouse effects
+    let mouseX = 0;
+    let mouseY = 0;
+    
+    document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        
+        // Create temporary attraction particles on mouse move
+        if (Math.random() < 0.1) {
+            createMouseParticle(mouseX, mouseY);
+        }
+    });
 }
+
+function createMouseParticle(x, y) {
+    const particle = document.createElement('div');
+    particle.style.cssText = `
+        position: fixed;
+        left: ${x}px;
+        top: ${y}px;
+        width: 4px;
+        height: 4px;
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.8), rgba(103, 126, 234, 0.4));
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 9998;
+        animation: mouseParticleFloat 2s ease-out forwards;
+    `;
+    
+    document.body.appendChild(particle);
+    
+    setTimeout(() => {
+        if (particle.parentNode) {
+            particle.remove();
+        }
+    }, 2000);
+}
+
+// Add mouse particle animation
+const mouseParticleStyle = document.createElement('style');
+mouseParticleStyle.textContent = `
+    @keyframes mouseParticleFloat {
+        0% {
+            transform: translate(0, 0) scale(1);
+            opacity: 1;
+        }
+        100% {
+            transform: translate(${Math.random() * 200 - 100}px, ${Math.random() * 200 - 100}px) scale(0);
+            opacity: 0;
+        }
+    }
+`;
+document.head.appendChild(mouseParticleStyle);
 
 // Enhanced button hover effects
 document.querySelectorAll('.btn').forEach(btn => {
@@ -481,10 +607,138 @@ rippleStyle.textContent = `
 `;
 document.head.appendChild(rippleStyle);
 
-// Initialize particles when page loads
+// Initialize advanced particles when page loads
 window.addEventListener('load', () => {
-    setTimeout(createParticles, 1000);
+    setTimeout(createAdvancedParticles, 1000);
+    setTimeout(createGeometricShapes, 1500);
+    setTimeout(createStarField, 2000);
 });
+
+// Add geometric shapes animation
+function createGeometricShapes() {
+    const shapesContainer = document.createElement('div');
+    shapesContainer.className = 'geometric-shapes';
+    shapesContainer.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 2;
+        overflow: hidden;
+    `;
+    
+    const shapes = ['triangle', 'square', 'hexagon', 'diamond'];
+    
+    for (let i = 0; i < 15; i++) {
+        const shape = document.createElement('div');
+        const shapeType = shapes[Math.floor(Math.random() * shapes.length)];
+        const size = Math.random() * 30 + 10;
+        const duration = Math.random() * 30 + 20;
+        const delay = Math.random() * 10;
+        
+        shape.className = `geometric-shape ${shapeType}`;
+        shape.style.cssText = `
+            position: absolute;
+            width: ${size}px;
+            height: ${size}px;
+            left: ${Math.random() * 100}%;
+            animation: geometricFloat ${duration}s linear infinite;
+            animation-delay: ${delay}s;
+            opacity: 0.1;
+        `;
+        
+        // Different shape styles
+        if (shapeType === 'triangle') {
+            shape.style.background = 'transparent';
+            shape.style.borderLeft = `${size/2}px solid transparent`;
+            shape.style.borderRight = `${size/2}px solid transparent`;
+            shape.style.borderBottom = `${size}px solid rgba(255, 255, 255, 0.2)`;
+            shape.style.width = '0';
+            shape.style.height = '0';
+        } else if (shapeType === 'square') {
+            shape.style.background = 'rgba(103, 126, 234, 0.2)';
+            shape.style.border = '1px solid rgba(255, 255, 255, 0.3)';
+        } else if (shapeType === 'hexagon') {
+            shape.style.background = 'rgba(240, 147, 251, 0.2)';
+            shape.style.clipPath = 'polygon(30% 0%, 70% 0%, 100% 50%, 70% 100%, 30% 100%, 0% 50%)';
+        } else if (shapeType === 'diamond') {
+            shape.style.background = 'rgba(255, 255, 255, 0.2)';
+            shape.style.transform = 'rotate(45deg)';
+        }
+        
+        shapesContainer.appendChild(shape);
+    }
+    
+    document.body.appendChild(shapesContainer);
+}
+
+// Add starfield effect
+function createStarField() {
+    const starContainer = document.createElement('div');
+    starContainer.className = 'star-field';
+    starContainer.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1;
+        overflow: hidden;
+    `;
+    
+    for (let i = 0; i < 100; i++) {
+        const star = document.createElement('div');
+        const size = Math.random() * 2 + 1;
+        const duration = Math.random() * 3 + 2;
+        const delay = Math.random() * 5;
+        
+        star.style.cssText = `
+            position: absolute;
+            width: ${size}px;
+            height: ${size}px;
+            background: white;
+            border-radius: 50%;
+            left: ${Math.random() * 100}%;
+            top: ${Math.random() * 100}%;
+            animation: twinkle ${duration}s ease-in-out infinite alternate;
+            animation-delay: ${delay}s;
+            box-shadow: 0 0 ${size * 3}px rgba(255, 255, 255, 0.5);
+        `;
+        
+        starContainer.appendChild(star);
+    }
+    
+    // Add twinkle animation
+    const starStyle = document.createElement('style');
+    starStyle.textContent = `
+        @keyframes twinkle {
+            0% { opacity: 0.3; transform: scale(1); }
+            100% { opacity: 1; transform: scale(1.5); }
+        }
+        
+        @keyframes geometricFloat {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.1;
+            }
+            90% {
+                opacity: 0.1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+    `;
+    document.head.appendChild(starStyle);
+    document.body.appendChild(starContainer);
+}
 
 // Enhanced scroll animations with stagger effect
 function addStaggerAnimation() {
@@ -497,3 +751,65 @@ function addStaggerAnimation() {
 
 // Initialize stagger animations
 document.addEventListener('DOMContentLoaded', addStaggerAnimation);
+
+// Add explosion particle effect on clicks
+document.addEventListener('click', (e) => {
+    createExplosionEffect(e.clientX, e.clientY);
+});
+
+function createExplosionEffect(x, y) {
+    const particleCount = 12;
+    
+    for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        const angle = (360 / particleCount) * i;
+        const velocity = Math.random() * 100 + 50;
+        const size = Math.random() * 4 + 2;
+        const hue = Math.random() * 60 + 200; // Blue to purple range
+        
+        particle.style.cssText = `
+            position: fixed;
+            left: ${x}px;
+            top: ${y}px;
+            width: ${size}px;
+            height: ${size}px;
+            background: hsl(${hue}, 70%, 60%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10000;
+            animation: explode 1s ease-out forwards;
+            --angle: ${angle}deg;
+            --velocity: ${velocity}px;
+            box-shadow: 0 0 ${size * 2}px hsl(${hue}, 70%, 60%);
+        `;
+        
+        document.body.appendChild(particle);
+        
+        setTimeout(() => {
+            if (particle.parentNode) {
+                particle.remove();
+            }
+        }, 1000);
+    }
+}
+
+// Add explosion animation
+const explosionStyle = document.createElement('style');
+explosionStyle.textContent = `
+    @keyframes explode {
+        0% {
+            transform: translate(0, 0) scale(1);
+            opacity: 1;
+        }
+        100% {
+            transform: 
+                translate(
+                    calc(cos(var(--angle)) * var(--velocity)),
+                    calc(sin(var(--angle)) * var(--velocity))
+                )
+                scale(0);
+            opacity: 0;
+        }
+    }
+`;
+document.head.appendChild(explosionStyle);
