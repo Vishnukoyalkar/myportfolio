@@ -340,16 +340,25 @@ p {
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.15);
     backdrop-filter: blur(10px);
-    border: 2px solid rgba(255, 255, 255, 0.2);
+    border: 3px solid rgba(255, 255, 255, 0.3);
     display: flex;
     align-items: center;
     justify-content: center;
     box-shadow: 
         0 8px 32px rgba(0, 0, 0, 0.3),
-        inset 0 2px 4px rgba(255, 255, 255, 0.2);
+        inset 0 2px 4px rgba(255, 255, 255, 0.2),
+        0 0 40px rgba(255, 255, 255, 0.1);
     animation: float 3s ease-in-out infinite, profileGlow 4s ease-in-out infinite alternate;
     position: relative;
     overflow: hidden;
+}
+
+.image-placeholder:hover {
+    border-color: rgba(255, 255, 255, 0.6);
+    box-shadow: 
+        0 12px 40px rgba(0, 0, 0, 0.4),
+        inset 0 2px 4px rgba(255, 255, 255, 0.3),
+        0 0 60px rgba(255, 255, 255, 0.2);
 }
 
 .image-placeholder::before {
@@ -379,6 +388,15 @@ p {
     border-radius: 50%;
     z-index: 2;
     position: relative;
+    transition: all 0.3s ease;
+    filter: brightness(1.1) contrast(1.1);
+    cursor: pointer;
+}
+
+.profile-photo:hover {
+    transform: scale(1.05);
+    filter: brightness(1.2) contrast(1.2);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
 }
 
 @keyframes profileGlow {
@@ -503,7 +521,19 @@ p {
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: var(--shadow-lg);
+    box-shadow: 
+        var(--shadow-lg),
+        0 0 30px rgba(103, 126, 234, 0.3);
+    transition: all 0.3s ease;
+    border: 3px solid rgba(255, 255, 255, 0.2);
+}
+
+.profile-image:hover {
+    transform: scale(1.02);
+    box-shadow: 
+        0 15px 35px rgba(0, 0, 0, 0.2),
+        0 0 40px rgba(103, 126, 234, 0.4);
+    border-color: rgba(103, 126, 234, 0.4);
 }
 
 .profile-image i {
@@ -516,12 +546,29 @@ p {
     height: 100%;
     object-fit: cover;
     border-radius: 50%;
+    transition: all 0.3s ease;
+    filter: brightness(1.1) contrast(1.1);
+    cursor: pointer;
+}
+
+.profile-image:hover .profile-photo {
+    transform: scale(1.05);
+    filter: brightness(1.2) contrast(1.2);
+    box-shadow: 0 0 20px rgba(103, 126, 234, 0.4);
 }
 
 .about-text h3 {
     font-size: 2rem;
     color: var(--text-color);
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.about-subtitle {
+    font-size: 1.1rem;
+    color: var(--primary-color);
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+    font-style: italic;
 }
 
 .about-description {

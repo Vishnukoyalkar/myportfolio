@@ -813,3 +813,150 @@ explosionStyle.textContent = `
     }
 `;
 document.head.appendChild(explosionStyle);
+
+// Add photo spotlight effect
+function addPhotoSpotlight() {
+    const photos = document.querySelectorAll('.profile-photo');
+    
+    photos.forEach(photo => {
+        photo.addEventListener('click', () => {
+            // Create spotlight overlay
+            const spotlight = document.createElement('div');
+            spotlight.className = 'photo-spotlight';
+            spotlight.innerHTML = `
+                <div class="spotlight-content">
+                    <img src="${photo.src}" alt="${photo.alt}" class="spotlight-image">
+                    <div class="spotlight-close">&times;</div>
+                    <div class="spotlight-caption">
+                        <h3>Vishnuvardhan Koyalkar</h3>
+                        <p>Computer Science Student & AI Enthusiast</p>
+                    </div>
+                </div>
+            `;
+            
+            spotlight.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.9);
+                z-index: 10001;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                opacity: 0;
+                transition: opacity 0.3s ease;
+                backdrop-filter: blur(5px);
+            `;
+            
+            document.body.appendChild(spotlight);
+            
+            // Animate in
+            setTimeout(() => {
+                spotlight.style.opacity = '1';
+            }, 10);
+            
+            // Close functionality
+            const closeBtn = spotlight.querySelector('.spotlight-close');
+            const closeSpotlight = () => {
+                spotlight.style.opacity = '0';
+                setTimeout(() => {
+                    if (spotlight.parentNode) {
+                        spotlight.remove();
+                    }
+                }, 300);
+            };
+            
+            closeBtn.addEventListener('click', closeSpotlight);
+            spotlight.addEventListener('click', (e) => {
+                if (e.target === spotlight) {
+                    closeSpotlight();
+                }
+            });
+            
+            // ESC key to close
+            const handleKeydown = (e) => {
+                if (e.key === 'Escape') {
+                    closeSpotlight();
+                    document.removeEventListener('keydown', handleKeydown);
+                }
+            };
+            document.addEventListener('keydown', handleKeydown);
+        });
+    });
+}
+
+// Add spotlight styles
+const spotlightStyle = document.createElement('style');
+spotlightStyle.textContent = `
+    .spotlight-content {
+        text-align: center;
+        max-width: 90%;
+        max-height: 90%;
+        position: relative;
+        animation: spotlightZoom 0.3s ease-out;
+    }
+    
+    .spotlight-image {
+        max-width: 400px;
+        max-height: 400px;
+        border-radius: 20px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        margin-bottom: 1rem;
+    }
+    
+    .spotlight-close {
+        position: absolute;
+        top: -10px;
+        right: -10px;
+        width: 40px;
+        height: 40px;
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        font-weight: bold;
+        cursor: pointer;
+        color: #333;
+        transition: all 0.3s ease;
+    }
+    
+    .spotlight-close:hover {
+        background: white;
+        transform: scale(1.1);
+    }
+    
+    .spotlight-caption {
+        color: white;
+        margin-top: 1rem;
+    }
+    
+    .spotlight-caption h3 {
+        font-size: 1.8rem;
+        margin-bottom: 0.5rem;
+        color: white;
+    }
+    
+    .spotlight-caption p {
+        font-size: 1.1rem;
+        color: rgba(255, 255, 255, 0.8);
+    }
+    
+    @keyframes spotlightZoom {
+        from {
+            transform: scale(0.8);
+            opacity: 0;
+        }
+        to {
+            transform: scale(1);
+            opacity: 1;
+        }
+    }
+`;
+document.head.appendChild(spotlightStyle);
+
+// Initialize photo spotlight
+document.addEventListener('DOMContentLoaded', addPhotoSpotlight);
