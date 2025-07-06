@@ -224,30 +224,30 @@ projectCards.forEach((card, index) => {
 // Contact Form Handling
 const contactForm = document.getElementById('contactForm');
 
-contactForm.addEventListener('submit', function(e) {
-    e.preventDefault();
+// contactForm.addEventListener('submit', function(e) {
+//     e.preventDefault();
     
-    // Get form data
-    const formData = new FormData(contactForm);
-    const name = formData.get('name');
-    const email = formData.get('email');
-    const message = formData.get('message');
+//     // Get form data
+//     const formData = new FormData(contactForm);
+//     const name = formData.get('name');
+//     const email = formData.get('email');
+//     const message = formData.get('message');
     
-    // Simple form validation
-    if (!name || !email || !message) {
-        showNotification('Please fill in all fields', 'error');
-        return;
-    }
+//     // Simple form validation
+//     if (!name || !email || !message) {
+//         showNotification('Please fill in all fields', 'error');
+//         return;
+//     }
     
-    if (!isValidEmail(email)) {
-        showNotification('Please enter a valid email address', 'error');
-        return;
-    }
+//     if (!isValidEmail(email)) {
+//         showNotification('Please enter a valid email address', 'error');
+//         return;
+//     }
     
-    // Simulate form submission
-    showNotification('Thank you for your message! I\'ll get back to you soon.', 'success');
-    contactForm.reset();
-});
+//     // Simulate form submission
+//     showNotification('Thank you for your message! I\'ll get back to you soon.', 'success');
+//     contactForm.reset();
+// });
 
 // Email validation function
 function isValidEmail(email) {
@@ -256,52 +256,52 @@ function isValidEmail(email) {
 }
 
 // Notification system
-function showNotification(message, type) {
-    // Remove existing notifications
-    const existingNotification = document.querySelector('.notification');
-    if (existingNotification) {
-        existingNotification.remove();
-    }
+// function showNotification(message, type) {
+//     // Remove existing notifications
+//     const existingNotification = document.querySelector('.notification');
+//     if (existingNotification) {
+//         existingNotification.remove();
+//     }
     
-    // Create notification element
-    const notification = document.createElement('div');
-    notification.className = `notification ${type}`;
-    notification.textContent = message;
+//     // Create notification element
+//     const notification = document.createElement('div');
+//     notification.className = `notification ${type}`;
+//     notification.textContent = message;
     
-    // Style the notification
-    notification.style.cssText = `
-        position: fixed;
-        top: 100px;
-        right: 20px;
-        background: ${type === 'success' ? '#48bb78' : '#f56565'};
-        color: white;
-        padding: 1rem 1.5rem;
-        border-radius: 8px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        z-index: 1001;
-        font-weight: 500;
-        transform: translateX(100%);
-        transition: transform 0.3s ease;
-    `;
+//     // Style the notification
+//     notification.style.cssText = `
+//         position: fixed;
+//         top: 100px;
+//         right: 20px;
+//         background: ${type === 'success' ? '#48bb78' : '#f56565'};
+//         color: white;
+//         padding: 1rem 1.5rem;
+//         border-radius: 8px;
+//         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+//         z-index: 1001;
+//         font-weight: 500;
+//         transform: translateX(100%);
+//         transition: transform 0.3s ease;
+//     `;
     
-    // Add to DOM
-    document.body.appendChild(notification);
+//     // Add to DOM
+//     document.body.appendChild(notification);
     
-    // Animate in
-    setTimeout(() => {
-        notification.style.transform = 'translateX(0)';
-    }, 100);
+//     // Animate in
+//     setTimeout(() => {
+//         notification.style.transform = 'translateX(0)';
+//     }, 100);
     
-    // Remove after 5 seconds
-    setTimeout(() => {
-        notification.style.transform = 'translateX(100%)';
-        setTimeout(() => {
-            if (notification.parentNode) {
-                notification.remove();
-            }
-        }, 300);
-    }, 5000);
-}
+//     // Remove after 5 seconds
+//     setTimeout(() => {
+//         notification.style.transform = 'translateX(100%)';
+//         setTimeout(() => {
+//             if (notification.parentNode) {
+//                 notification.remove();
+//             }
+//         }, 300);
+//     }, 5000);
+// }
 
 // Parallax effect for home section
 window.addEventListener('scroll', () => {

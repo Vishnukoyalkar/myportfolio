@@ -257,7 +257,7 @@
         <div class="container">
             <h2 class="section-title">Achievements</h2>
             <div class="achievements-grid">
-                
+
 
                 <div class="achievement-card">
                     <div class="achievement-icon">
@@ -460,8 +460,8 @@
                             <i class="fab fa-github"></i>
                         </a>
                         <a href="https://www.instagram.com/vishnu_koyalkar/" class="social-link" target="_blank">
-                        <i class="fab fa-instagram"></i>
-                    </a>
+                            <i class="fab fa-instagram"></i>
+                        </a>
                         <a href="mailto:koyalkarvishnu1@gmail.com" class="social-link">
                             <i class="fas fa-envelope"></i>
                         </a>
@@ -469,20 +469,28 @@
                 </div>
 
                 <div class="contact-form">
-                    <form id="contactForm">
+                    <form id="contactForm" action="https://formspree.io/f/mqaboydz" method="POST">
+                        <!-- Name Field -->
                         <div class="form-group">
                             <input type="text" id="name" name="name" placeholder="Your Name" required>
                         </div>
+
+                        <!-- Email Field -->
                         <div class="form-group">
                             <input type="email" id="email" name="email" placeholder="Your Email" required>
                         </div>
+
+                        <!-- Message Field -->
                         <div class="form-group">
                             <textarea id="message" name="message" placeholder="Your Message" rows="5"
                                 required></textarea>
                         </div>
+
+                        <!-- Submit Button -->
                         <button type="submit" class="btn btn-primary">Send Message</button>
                     </form>
                 </div>
+
             </div>
         </div>
     </section>
