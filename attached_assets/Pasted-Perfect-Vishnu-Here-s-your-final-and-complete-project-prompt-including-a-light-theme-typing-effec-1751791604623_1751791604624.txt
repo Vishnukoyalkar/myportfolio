@@ -1,0 +1,140 @@
+Perfect, Vishnu! Here's your final and complete project prompt including a light theme, typing effect, and a Skills section with icons and names, along with all your required pages and layout.
+
+🌟 Final Project Prompt:
+“Build a Light-Themed, Modern Portfolio Website for Vishnu Vardhan”
+
+🎯 Objective:
+Create a modern, responsive, light-themed portfolio website for Vishnu Vardhan that showcases his personal and professional journey, skills, projects, and achievements. The design should be clean, easy to navigate, and mobile-friendly.
+
+🗂️ Pages & Sections
+🏠 Home
+Light background with bold text
+
+Auto-typing effect: “Hi, I’m Vishnu Vardhan”
+
+Brief previews of:
+
+About
+
+Education
+
+Skills
+
+Achievements
+
+Experiences
+
+Projects
+
+Certifications
+
+Contact
+
+Smooth scroll and animated entry
+
+Navigation bar with active link highlighting
+
+👤 About
+Name
+
+Profile photo
+
+About text: Short introduction, goals, and personality
+
+🎓 Education
+Each education entry includes:
+
+College Name
+
+College Logo/Image
+
+Years attended
+
+CGPA
+
+Branch
+
+🧠 Skills
+Display skills in grid format with icons and names
+
+Example:
+
+![Java Icon] Java
+
+![HTML Icon] HTML5
+
+![CSS Icon] CSS3
+
+![JavaScript Icon] JavaScript
+
+![Git Icon] Git
+
+![ML Icon] Machine Learning
+
+Use Font Awesome, Devicon, or SVG icons
+
+Light background with soft card hover effects
+
+🏆 Achievements
+List of notable accomplishments
+
+Include:
+
+Title
+
+Short description
+
+Date (optional)
+
+💼 Experiences
+Internship/Job listings:
+
+Title
+
+Company
+
+Duration
+
+Responsibilities
+
+💻 Projects
+Each project includes:
+
+Title
+
+Description
+
+Technologies used (tags)
+
+Live Demo button
+
+GitHub Repo button
+
+📜 Certifications
+Certificate title
+
+Issuing platform (e.g., Infosys, Microsoft)
+
+Date
+
+Link to view/download
+
+📞 Contact
+Name, Email, Message form
+
+Social icons (LinkedIn, GitHub, Email)
+
+Optional: Embedded Google Maps or location
+
+🎨 Theme & Design
+Light Theme (white or soft pastel background)
+
+Soft shadows, gentle hover animations
+
+Rounded buttons and cards
+
+Clean, readable fonts (Poppins, Inter, Segoe UI)
+
+Mobile responsive layout using Flexbox/Grid
+
+Optionally use Tailwind CSS or Bootstrap for styling
